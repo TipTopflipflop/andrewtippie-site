@@ -477,99 +477,124 @@
     <p class="method-framing">
       The document below is the methodology I use to build AI systems. It's not theoretical —
       it produced a 900-line, build-ready specification for Leon (CBL) across 17 phases.
-      I apply it on every project: simulate multi-disciplinary review, stress-test architecture
-      adversarially, iterate until convergence, then translate to a spec an engineer can execute.
+      v2.0 incorporates the patches that survived running the methodology against itself:
+      structured FMEA, an anti-anchor baseline, per-stage instrumentation, and a counterfactual
+      baseline stage that measures what the methodology actually added.
     </p>
 
     <div class="method-doc">
       <h1>The Iterative Multi-Disciplinary Design Methodology</h1>
-      <p class="doc-subtitle">A reusable process for taking an idea to a fully-architected, build-ready specification</p>
+      <p class="doc-subtitle">Version 2.0 — Updated 2026-05-15 &nbsp;·&nbsp; A reusable process for taking an idea to a fully-architected, build-ready specification</p>
+      <hr />
+
+      <h2>Known Limits (Read Before Using)</h2>
+      <p>These are the structural weaknesses the consortium identified during the self-review. They are not fully fixed in v2.0. They are real and you should know about them.</p>
+      <ol>
+        <li><strong>The single-generator problem.</strong> Every "discipline" in the consortium is simulated by one model. Agreement among simulated experts is coherence, not independence. The methodology produces internal consistency; it does not produce external validation.</li>
+        <li><strong>N=1 evidentiary base.</strong> The claim that this methodology produces better architectures rests on one application (CBL). There is no published counterfactual, no comparison to alternative methodologies, no tracked outcomes from real builds. Stage 11 begins to address this but does not resolve it.</li>
+        <li><strong>No cross-provider review.</strong> True independence would require at least one pass from a different model provider. Treat this as an external validation step if the project warrants it.</li>
+        <li><strong>Inside the generator's prior.</strong> The methodology cannot find architectures that lie outside what the generating model can imagine. Stage 2b partially compensates but does not eliminate the bound.</li>
+        <li><strong>Self-review is not validation.</strong> v2.0's patches were derived by the methodology applying itself to itself. That tells you the methodology is internally critique-able — not that the patches actually improve real-world output.</li>
+      </ol>
+
+      <h2>What v2.0 Changed</h2>
+      <ul>
+        <li><strong>New Stage 0: Pre-Registration.</strong> Falsifiability criteria, project-refusal gate, and declared stage requirements written before the methodology begins.</li>
+        <li><strong>New Stage 2b: Anti-Anchor Baseline.</strong> A second architecture from opposite first principles, carried in parallel until one is reasoned out.</li>
+        <li><strong>Replaced freeform adversarial review with structured FMEA.</strong> Tabular, traceable, scored (Severity × Likelihood × Detectability = RPN).</li>
+        <li><strong>Per-stage instrumentation.</strong> Novel claims, restatements, and drops tracked per stage. Novelty floor stops ceremonial stages.</li>
+        <li><strong>Falsifier required per architectural decision.</strong> "We chose X because Y; Y would be wrong if Z." No falsifier, no commitment.</li>
+        <li><strong>New Stage 11: Counterfactual Baseline.</strong> A one-pass design from the same generator produced at the end and compared.</li>
+        <li><strong>Contrarian-first review.</strong> Each persona produces one explicit disagreement before any "consensus" is recorded.</li>
+      </ul>
+
       <hr />
 
       <h2>The Core Insight</h2>
-      <p>Most "design a system" conversations produce mediocre results because they take one pass at it. One model, one perspective, one shot. The result is competent but generic — covers what's obvious, misses what isn't.</p>
-      <p>The methodology below produces dramatically better results because it explicitly simulates the multi-perspective review that real-world architecture goes through, but compressed and accelerated. It works because:</p>
+      <p>Most "design a system" conversations produce mediocre results because they take one pass. One model, one perspective, one shot — competent but generic, covers what's obvious, misses what isn't.</p>
+      <p>The methodology below produces better results because it explicitly simulates the multi-perspective review that real-world architecture goes through, compressed and accelerated. It works — <em>to the extent it works</em> — because:</p>
       <ol>
-        <li><strong>Different disciplines see different things.</strong> A neuroscientist notices that a system has no equivalent of memory consolidation. A hostage negotiator notices that the clarification questions are too binary. A jazz musician notices that the timing is wrong. None of these are reachable from a single-perspective design pass.</li>
-        <li><strong>Constraints make architecture better.</strong> When you force the system through ten different lenses, the parts that survive all of them are structurally sound. The parts that don't survive get refined or removed.</li>
-        <li><strong>Iteration converges on truth.</strong> Running the same review process repeatedly with fresh eyes catches things prior passes missed. There's a natural convergence point past which further iteration produces noise rather than signal — usually around the third or fourth pass.</li>
-        <li><strong>A proper trust architecture cannot be designed in one shot.</strong> Safety, scope, refusal, and trust patterns require explicit adversarial review. They emerge from disciplined challenge, not from one-pass design.</li>
+        <li><strong>Different disciplines see different things.</strong> A neuroscientist notices missing memory consolidation. A hostage negotiator notices binary clarification. A jazz musician notices broken timing. None of these are reachable from a single-perspective pass.</li>
+        <li><strong>Constraints make architecture better.</strong> Forcing the system through ten lenses, the parts that survive all of them tend to be structurally sound.</li>
+        <li><strong>Iteration with instrumentation converges.</strong> Repeated review with fresh perspectives catches what prior passes missed. In v2.0, instrumented novelty per stage tells you when you've actually converged versus when you're running ritual.</li>
+        <li><strong>Trust architecture cannot be designed in one shot.</strong> Safety, scope, refusal, and trust require adversarial review. They emerge from disciplined challenge.</li>
       </ol>
+      <blockquote>An important caveat: the methodology produces <em>coherence</em>. Coherence is not truth. Read the Known Limits above before treating any output as validated.</blockquote>
 
       <h2>The Stages</h2>
-      <p>The methodology has approximately ten stages, each requiring multiple exchanges. Total interaction count for a complex system: 30–50 substantive exchanges from idea to build-ready spec. Do not rush through them.</p>
+      <p>The methodology now has eleven stages. Each requires multiple exchanges. Total: 40–60 substantive exchanges from idea to build-ready spec. Stages 0, 2b, and 11 are new. Stage 5 is replaced.</p>
+
+      <h3>Stage 0 — Pre-Registration (NEW)</h3>
+      <p>Commit to falsifiable criteria before applying the methodology. Write down what the project is trying to accomplish. Write down what "this methodology failed for this project" would look like — explicit, observable, dated conditions. Decide whether the project should be built at all. Declare which stages are required, which are conditional, which are optional. Set the novelty floor for Stage 9 convergence (typical: fewer than three genuinely new claims = below floor). Output: a pre-registration document, dated, confirmed by user — not revisable based on later results.</p>
 
       <h3>Stage 1 — Establish the Real Problem</h3>
-      <p>Surface what the user actually wants to build, beneath the surface description. Take the description at face value briefly, restate the problem back in your own words, and ask if that's right. Ask what the tool would do that existing tools don't, or what currently breaks about the workflow. Output: a clean problem statement everyone agrees on.</p>
+      <p>Surface what the user actually wants to build. Take the description at face value briefly. Ask one or two clarifying questions. Restate in your own words and confirm. Ask what the tool does that existing tools don't, or what currently breaks about the workflow. Output: a clean problem statement everyone agrees on.</p>
 
-      <h3>Stage 2 — Identify the Initial Architecture</h3>
-      <p>Sketch the obvious solution before improving it. Propose what a competent engineer would build: name technologies, list components, describe data flow. Acknowledge limitations honestly. The first-draft architecture is the baseline against which improvements are measured.</p>
+      <h3>Stage 2 — Initial Architecture</h3>
+      <p>Sketch the obvious solution before improving it. Propose what a competent engineer would build: technologies, components, data flow. Acknowledge limitations honestly. This is the baseline against which improvements are measured.</p>
+
+      <h3>Stage 2b — Anti-Anchor Baseline (NEW)</h3>
+      <p>Prevent the methodology from hill-climbing inside Stage 2's basin of attraction. Generate a second baseline from opposite first principles — if Stage 2 was centralized, make this decentralized; if stateful, stateless; if model-first, rule-first. The opposition must be architectural, not cosmetic. Carry both baselines through Stages 3–5. Drop one only when a review produces a defensible logged reason, or merge into a hybrid that explicitly inherits from each.</p>
 
       <h3>Stage 3 — First Improvement Pass: The Smarter Friend</h3>
-      <p>Have the architecture critiqued by a more experienced perspective. Frame it as: "If I handed this to a more senior engineer, what would they say?" Generate concrete additions with specific names (real algorithms, real APIs, real techniques) over generic advice. Acknowledge tradeoffs.</p>
+      <p>Critique by a more experienced perspective, applied to both baselines. "If I handed this to a senior engineer, what would they say?" Generate concrete additions: specific named techniques, real algorithms, real APIs. Acknowledge tradeoffs.</p>
 
       <h3>Stage 4 — Multi-Team Review (3–5 Teams)</h3>
-      <p>Review from professional perspectives that map directly to the problem domain — for example, for a browser tool: Chromium engineers, ML researchers, accessibility engineers, enterprise architects, red team security. Each team contributes 5–10 concrete architectural improvements in their voice. Identify cross-team consensus points — where multiple teams independently arrive at the same conclusion, that's load-bearing architecture.</p>
+      <p>Review from professional perspectives directly relevant to the problem domain. Each team contributes 5–10 concrete improvements in their voice. <strong>Contrarian-first:</strong> each team must produce one explicit disagreement before any consensus is recorded — immediate agreement is mode collapse. Identify cross-team coherence points (note: coherence, not validation — see Known Limits). End each section with what the team is worried or enthusiastic about.</p>
 
-      <h3>Stage 5 — Adversarial Review</h3>
-      <p>Identify the dangerous failure modes before they ship. Bring in a red team explicitly: misuse, attack surfaces, ethical failures, legal exposure. Distinguish between threats that should be designed-out (architectural changes) and threats that should be policy (rules). Create the structural separation that prevents misuse — enforced by architecture, not trust.</p>
+      <h3>Stage 5 — Structured FMEA (REPLACES freeform adversarial review)</h3>
+      <p>Enumerate failure modes in a tabular FMEA: Failure mode · Cause · Effect · Severity (1–5) · Likelihood (1–5) · Detectability (1–5, where 5 = hard to detect) · Risk Priority Number (S×L×D) · Mitigation · Mitigation type (design-out vs. policy-out). Items with RPN ≥ 50 require an explicit architectural mitigation, not a policy mitigation. Output: FMEA table with all rows traced to a mitigation in the spec.</p>
 
-      <h3>Stage 6 — The Toggle / Mode Architecture</h3>
-      <p>If the system serves multiple user populations, design the mode/tier architecture. Identify populations with different needs (consumer, enterprise, professional, researcher). Design tiers that escalate capability with proportional safety. The safest tier is the default; the highest tier is gated by something verifiable. Make the gate cryptographic where possible — verifiable beats "trust the user."</p>
+      <h3>Stage 6 — Toggle / Mode Architecture (if relevant)</h3>
+      <p>If the system serves multiple user populations, design tiered access. Safest tier is default; highest tier is gated by something verifiable. Cryptographic gates beat trust-the-user. Structural separation between tiers, not policy separation.</p>
 
       <h3>Stage 7 — Visionary / Think Tank Review</h3>
-      <p>Catch strategic and platform-level concerns the engineering review missed. Bring in perspectives that look at the system as a whole: futurists, economists, product strategists, platform thinkers. Identify emergent properties — capabilities the system has when you combine its components that aren't obvious from any one component alone. Identify the moat.</p>
+      <p>Strategic and platform-level concerns the engineering review missed. Futurists, economists, product strategists, platform thinkers. Long-term position, network effects, emergent properties, moat. Apply novelty floor: if this stage produces fewer than three genuinely new claims, log that and reduce its weight rather than padding.</p>
 
       <h3>Stage 8 — Cross-Domain Expansion</h3>
-      <p>Add disciplines not previously consulted to surface what's still missing. Bring in 3–5 disciplines that wouldn't normally be consulted on this problem — neuroscientists, biologists, theoretical physicists, jazz musicians, liturgical scholars, hostage negotiators. The unusual perspectives often catch what the obvious perspectives missed.</p>
+      <p>3–5 disciplines unusual for this problem: neuroscientists, biologists, theoretical physicists, jazz musicians, liturgical scholars, hostage negotiators. Apply novelty floor — if a discipline genuinely adds nothing, say so. Do not pad with plausible-sounding contributions.</p>
 
-      <h3>Stage 9 — Iterative Convergence</h3>
-      <p>Run the review process repeatedly until further iteration produces no new signal. After each pass, identify what was new vs. what was rediscovery. Track when the rate of new signal drops sharply — that's convergence. Typical convergence: 3–4 full review passes. Beyond convergence, additional passes produce variance, not improvement.</p>
+      <h3>Stage 9 — Iterative Convergence (UPDATED)</h3>
+      <p>Run review repeatedly with instrumentation until novelty drops below the pre-registered floor. Instrument each stage: count novel claims added, claims that are restatements, claims dropped under later review. Convergence = novelty below floor for two consecutive stages. Typical: 3–4 full review passes. Do not run extra passes for impressiveness.</p>
 
       <h3>Stage 10 — Build-Ready Translation</h3>
-      <p>Translate the architecture into a build plan that an engineer (human or AI) can execute. Produce a <code>SPEC.md</code> organized by section (~500–1000 lines for a complex system) including: precedence rules, safety invariants, performance targets, build order with ship gates per phase, deferred items, and explicit refusals. Produce a <code>BRIEF.md</code> that bootstraps an AI builder — short, foolproof, with the absolute floor encoded so it survives context loss.</p>
+      <p>Translate architecture into a build plan a builder can execute. Produce a <code>SPEC.md</code> with: precedence rules, safety invariants (unoverridable), performance targets with variance/p99 bounds, build order with ship gates, deferred items, explicit refusals, versioned changelog. <strong>Falsifier requirement:</strong> every architectural decision must include a falsifier — "We chose X because Y. Y would be wrong if we observed Z." No falsifier, no commitment. Produce a <code>BRIEF.md</code> that bootstraps an AI builder, short and foolproof.</p>
+
+      <h3>Stage 11 — Counterfactual Baseline (NEW)</h3>
+      <p>Establish what the methodology actually added. Take only the Stage 1 problem statement. Generate a one-pass design from the same model — no iteration, no multi-discipline review, single response. Compare to the methodology's output. Document what the methodology added that one-pass missed. Document what one-pass got right that the methodology over-complicated. Log both for future calibration. Without this stage, you are claiming the methodology added value without measuring whether it did.</p>
 
       <hr />
 
       <h2>Patterns That Reliably Emerge</h2>
-      <p>These showed up in CBL because they show up in well-architected systems generally:</p>
-      <ul>
-        <li><strong>Layered Perception.</strong> Most systems perceive through one channel. Better systems perceive through multiple layers and prefer the most semantic one. Visual is fallback, not primary.</li>
-        <li><strong>Two-Agent Planner/Executor.</strong> A strong model plans, a cheap deterministic process executes, a verifier catches failures. This pattern recurs across every kind of agent system because it's structurally correct.</li>
-        <li><strong>State as a Graph, Not a Blob.</strong> Flat state representations lose causal information. State-transition graphs preserve it and enable reasoning about reversibility, causality, and consequence.</li>
-        <li><strong>Probabilistic Verification.</strong> Binary success/fail produces false confidence. Probabilistic verification with explicit uncertainty handling produces correct behavior under noise.</li>
-        <li><strong>Memory With Consolidation.</strong> Continuous AI systems that don't consolidate memory degrade over time. Add periodic offline reorganization and you get stable long-term performance.</li>
-        <li><strong>Control Mechanisms Inspired by Physical Engineering.</strong> Rate limits, control rods, dampers, pressure-relief valves — physical engineering has 70+ years of cascading-effect prevention. AI systems usually skip this and pay for it later.</li>
-        <li><strong>Three-Tier Mode Architecture.</strong> Personal (default, safe) → Organizational (managed, audited) → Research/Power-user (gated, capable). Lets one product serve three populations with appropriate safety per tier.</li>
-        <li><strong>Structural Separation, Not Policy.</strong> Where misuse is possible, build the architecture so misuse is impossible without explicit unsafe action — not so misuse is forbidden by rules.</li>
-        <li><strong>Refusal as Feature.</strong> What the system refuses to do is as important as what it does. Documented refusal categories and refusal-with-explanation are trust-building patterns.</li>
-        <li><strong>Forensic-Grade Audit.</strong> Hash-chained, third-party verifiable, immutable, exportable. Audit logs that are tamper-evident by design.</li>
-        <li><strong>Phase Gates With Concrete Ship Criteria.</strong> Each build phase has explicit "this is done" criteria. Don't advance past gates that don't pass.</li>
-        <li><strong>The Precedence Rule.</strong> When decisions conflict: safety invariants > scope/permission gates > constitutional principles > performance targets > everything else.</li>
-      </ul>
+      <p>These showed up in CBL because they tend to show up in well-architected systems. Look for them, but don't force them.</p>
+      <ol>
+        <li><strong>Layered Perception.</strong> Multiple input channels; prefer the most semantic. Visual as fallback, not primary.</li>
+        <li><strong>Two-Agent Planner/Executor.</strong> Strong model plans, cheap deterministic process executes, verifier catches failures.</li>
+        <li><strong>State as a Graph, Not a Blob.</strong> State-transition graphs preserve causal information; flat state loses it.</li>
+        <li><strong>Probabilistic Verification.</strong> Binary success/fail produces false confidence. Probabilistic with explicit uncertainty produces correct behavior under noise.</li>
+        <li><strong>Memory With Consolidation.</strong> Continuous systems degrade without periodic offline reorganization.</li>
+        <li><strong>Control Mechanisms From Physical Engineering.</strong> Rate limits, control rods, dampers, pressure-relief valves. 70+ years of cascading-effect prevention; most AI systems skip and pay later.</li>
+        <li><strong>Three-Tier Mode Architecture.</strong> Personal → Organizational → Research/Power-user. One product, three populations, appropriate safety per tier.</li>
+        <li><strong>Structural Separation, Not Policy.</strong> Type systems, cryptographic gates, architectural compartmentalization. Misuse impossible by design, not forbidden by rules.</li>
+        <li><strong>Constitutional Layer Distinct From Safety Invariants.</strong> Invariants enforced; constitutional principles consulted. Both necessary, different functions.</li>
+        <li><strong>Refusal as Feature.</strong> Public refusal logs, documented categories, refusal-with-explanation are trust-building.</li>
+        <li><strong>Forensic-Grade Audit.</strong> Hash-chained, third-party verifiable, immutable, exportable. Tamper-evident by design.</li>
+        <li><strong>Designed Pauses and Timing.</strong> Speed is not always the goal. Deliberate pauses signal thinking; timing matters as much as accuracy.</li>
+        <li><strong>Dev-Bypass Flags With Visible Banners.</strong> Build-time flag + git-diff visibility + runtime warning + UI banner. Cheap, prevents real embarrassment.</li>
+        <li><strong>Phase Gates With Concrete Ship Criteria.</strong> Explicit "this is done" criteria per phase. Don't advance past gates that don't pass.</li>
+        <li><strong>The Precedence Rule.</strong> Safety invariants &gt; scope/permission gates &gt; constitutional principles &gt; performance targets &gt; everything else. Holds across every application of this methodology to date.</li>
+      </ol>
+
+      <hr />
+
+      <h2>Changelog</h2>
+      <p><strong>v2.0 — 2026-05-15.</strong> Self-applied consortium review identified six structural weaknesses in v1.0: single-generator coherence mistaken for validation, unfalsifiability, anchoring at Stage 2, no counterfactual baseline, no instrumentation, no project-refusal gate. Patches: added Stages 0, 2b, and 11; replaced freeform adversarial review with structured FMEA; added per-stage instrumentation and novelty floor; added per-decision falsifier requirement; added contrarian-first protocol; added explicit Known Limits section. Patches are derived from internal review only and have not yet been validated against real-world application.</p>
+      <p><strong>v1.0 — original.</strong> Methodology that produced the CBL architecture. Ten stages, multi-disciplinary review, build-ready translation to SPEC.md + BRIEF.md.</p>
 
       <hr />
       <blockquote>
-        This methodology produced an unusually rigorous architecture for CBL because it didn't take shortcuts. The same methodology will produce comparably rigorous architectures for other problems if applied with the same discipline.
+        v1.0 produced an unusually rigorous architecture for CBL. v2.0 incorporates the patches that survived running v1.0 on itself. Neither version has been validated against a counterfactual baseline or against an alternative methodology. What you have is a structured process that survives its own internal review, with documented limits. Treat the distinction between coherence and validation as load-bearing.
       </blockquote>
-
-      <!-- AGENT ARCHITECT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div>
-            <div class="project-name">Agent Architect</div>
-            <div class="project-tagline">AI Stack Diagnostic Tool</div>
-          </div>
-          <span class="status-badge">Production</span>
-        </div>
-        <p class="project-desc">Diagnostic tool that designs custom agent stacks for small businesses. Takes a company name, returns a structured operations diagnostic plus a six-agent automation stack tailored to that company's gaps.</p>
-        <ul class="project-highlights">
-          <li>React + Claude API; returns core problems, revenue leaks, and urgency score in a single call</li>
-          <li>Structured JSON output designed for direct handoff into the Dale onboarding pipeline</li>
-          <li>Demonstrates the Agent Architect &rarr; Dale pipeline: diagnose, design, deploy</li>
-        </ul>
-        <a href="https://github.com/TipTopflipflop/agent-architect-trades" target="_blank" class="project-link">View on GitHub &rarr;</a>
-      </div>
 
     </div>
   </div>
