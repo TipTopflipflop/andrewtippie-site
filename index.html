@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrew Tippie — Filmmaker &amp; AI Systems Architect</title>
+  <meta name="description" content="Andrew Tippie — filmmaker, SAG actor, and builder of production AI systems. Based in Los Angeles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #F9F8F5;
+      --bg-alt:     #F2F0EB;
+      --bg-doc:     #FFFFFF;
+      --text:       #1A1917;
+      --text-muted: #6D6963;
+      --accent:     #2B4DA8;
+      --accent-bg:  #EDF0FA;
+      --border:     #E4E1DA;
+      --shadow:     0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+      --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --max-w:      780px;
+      --max-w-wide: 1060px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(249,248,245,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w-wide);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-name {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── CONTAINERS ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .container-wide {
+      max-width: var(--max-w-wide);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 6rem 0 5rem;
+      border-top: none;
+    }
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+      max-width: 680px;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 460px;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--text);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .hero-cta:hover { background: #333; transform: translateY(-1px); }
+    .hero-cta-arrow { font-size: 1rem; }
+
+    /* ── METHODOLOGY ── */
+    #methodology { background: var(--bg-alt); }
+    .method-framing {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 620px;
+    }
+    .method-doc {
+      background: var(--bg-doc);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .method-doc h1 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .method-doc .doc-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+      font-style: italic;
+    }
+    .method-doc h2 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 2rem 0 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    .method-doc h3 {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 1.5rem 0 0.4rem;
+      color: var(--text);
+    }
+    .method-doc p {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: #3A3835;
+      margin-bottom: 0.75rem;
+    }
+    .method-doc ul, .method-doc ol {
+      padding-left: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .method-doc li {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: #3A3835;
+      margin-bottom: 0.2rem;
+    }
+    .method-doc blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin: 1rem 0;
+    }
+    .method-doc code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.82rem;
+      background: var(--bg-alt);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+    .method-doc hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+    .method-toggle {
+      display: none;
+    }
+    .method-collapsed-notice {
+      display: none;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--bg-doc);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .project-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.09), 0 8px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .project-name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .project-tagline {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+    .status-badge {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--accent-bg);
+      color: var(--accent);
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .project-highlights {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .project-highlights li {
+      font-size: 0.82rem;
+      color: #5A5753;
+      line-height: 1.5;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .project-highlights li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+      font-size: 0.8rem;
+    }
+
+    /* ── RESUME ── */
+    #resume { padding: 4rem 0; }
+    .resume-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .resume-text h2 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .resume-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .resume-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1.5px solid var(--text);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.7rem 1.4rem;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .resume-download:hover {
+      background: var(--text);
+      color: #fff;
+    }
+    .resume-download svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* ── CONTACT ── */
+    #contact { padding: 4rem 0 6rem; }
+    .contact-headline {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .contact-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      background: var(--bg-doc);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.1rem;
+      border-radius: 6px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-bg);
+    }
+    .contact-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .contact-link.muted { color: var(--text-muted); font-style: italic; }
+    .contact-link.email-link { font-style: normal; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      section { padding: 3.5rem 0; }
+      #hero { padding: 4rem 0 3.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1.25rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .method-doc { padding: 1.5rem; }
+      .resume-inner { flex-direction: column; align-items: flex-start; }
+      .contact-links { flex-direction: column; }
+      .contact-link { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV
+════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="#">Andrew Tippie</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <p class="section-label">Andrew Tippie</p>
+    <h1 class="hero-headline">
+      I'm a filmmaker building AI systems — to make my own work, support small businesses, and ensure artists have a voice in how AI shapes the industry that depends on them.
+    </h1>
+    <p class="hero-sub">Working filmmaker (SAG) and builder of production AI systems. Based in Los Angeles.</p>
+    <a class="hero-cta" href="#contact">
+      Get in touch <span class="hero-cta-arrow">↓</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     METHODOLOGY
+════════════════════════════════════════ -->
+<section id="methodology">
+  <div class="container">
+    <p class="section-label">How I Think</p>
+    <p class="method-framing">
+      The document below is the methodology I use to build AI systems. It's not theoretical —
+      it produced a 900-line, build-ready specification for Leon (CBL) across 17 phases.
+      I apply it on every project: simulate multi-disciplinary review, stress-test architecture
+      adversarially, iterate until convergence, then translate to a spec an engineer can execute.
+    </p>
+
+    <div class="method-doc">
+      <h1>The Iterative Multi-Disciplinary Design Methodology</h1>
+      <p class="doc-subtitle">A reusable process for taking an idea to a fully-architected, build-ready specification</p>
+      <hr />
+
+      <h2>The Core Insight</h2>
+      <p>Most "design a system" conversations produce mediocre results because they take one pass at it. One model, one perspective, one shot. The result is competent but generic — covers what's obvious, misses what isn't.</p>
+      <p>The methodology below produces dramatically better results because it explicitly simulates the multi-perspective review that real-world architecture goes through, but compressed and accelerated. It works because:</p>
+      <ol>
+        <li><strong>Different disciplines see different things.</strong> A neuroscientist notices that a system has no equivalent of memory consolidation. A hostage negotiator notices that the clarification questions are too binary. A jazz musician notices that the timing is wrong. None of these are reachable from a single-perspective design pass.</li>
+        <li><strong>Constraints make architecture better.</strong> When you force the system through ten different lenses, the parts that survive all of them are structurally sound. The parts that don't survive get refined or removed.</li>
+        <li><strong>Iteration converges on truth.</strong> Running the same review process repeatedly with fresh eyes catches things prior passes missed. There's a natural convergence point past which further iteration produces noise rather than signal — usually around the third or fourth pass.</li>
+        <li><strong>A proper trust architecture cannot be designed in one shot.</strong> Safety, scope, refusal, and trust patterns require explicit adversarial review. They emerge from disciplined challenge, not from one-pass design.</li>
+      </ol>
+
+      <h2>The Stages</h2>
+      <p>The methodology has approximately ten stages, each requiring multiple exchanges. Total interaction count for a complex system: 30–50 substantive exchanges from idea to build-ready spec. Do not rush through them.</p>
+
+      <h3>Stage 1 — Establish the Real Problem</h3>
+      <p>Surface what the user actually wants to build, beneath the surface description. Take the description at face value briefly, restate the problem back in your own words, and ask if that's right. Ask what the tool would do that existing tools don't, or what currently breaks about the workflow. Output: a clean problem statement everyone agrees on.</p>
+
+      <h3>Stage 2 — Identify the Initial Architecture</h3>
+      <p>Sketch the obvious solution before improving it. Propose what a competent engineer would build: name technologies, list components, describe data flow. Acknowledge limitations honestly. The first-draft architecture is the baseline against which improvements are measured.</p>
+
+      <h3>Stage 3 — First Improvement Pass: The Smarter Friend</h3>
+      <p>Have the architecture critiqued by a more experienced perspective. Frame it as: "If I handed this to a more senior engineer, what would they say?" Generate concrete additions with specific names (real algorithms, real APIs, real techniques) over generic advice. Acknowledge tradeoffs.</p>
+
+      <h3>Stage 4 — Multi-Team Review (3–5 Teams)</h3>
+      <p>Review from professional perspectives that map directly to the problem domain — for example, for a browser tool: Chromium engineers, ML researchers, accessibility engineers, enterprise architects, red team security. Each team contributes 5–10 concrete architectural improvements in their voice. Identify cross-team consensus points — where multiple teams independently arrive at the same conclusion, that's load-bearing architecture.</p>
+
+      <h3>Stage 5 — Adversarial Review</h3>
+      <p>Identify the dangerous failure modes before they ship. Bring in a red team explicitly: misuse, attack surfaces, ethical failures, legal exposure. Distinguish between threats that should be designed-out (architectural changes) and threats that should be policy (rules). Create the structural separation that prevents misuse — enforced by architecture, not trust.</p>
+
+      <h3>Stage 6 — The Toggle / Mode Architecture</h3>
+      <p>If the system serves multiple user populations, design the mode/tier architecture. Identify populations with different needs (consumer, enterprise, professional, researcher). Design tiers that escalate capability with proportional safety. The safest tier is the default; the highest tier is gated by something verifiable. Make the gate cryptographic where possible — verifiable beats "trust the user."</p>
+
+      <h3>Stage 7 — Visionary / Think Tank Review</h3>
+      <p>Catch strategic and platform-level concerns the engineering review missed. Bring in perspectives that look at the system as a whole: futurists, economists, product strategists, platform thinkers. Identify emergent properties — capabilities the system has when you combine its components that aren't obvious from any one component alone. Identify the moat.</p>
+
+      <h3>Stage 8 — Cross-Domain Expansion</h3>
+      <p>Add disciplines not previously consulted to surface what's still missing. Bring in 3–5 disciplines that wouldn't normally be consulted on this problem — neuroscientists, biologists, theoretical physicists, jazz musicians, liturgical scholars, hostage negotiators. The unusual perspectives often catch what the obvious perspectives missed.</p>
+
+      <h3>Stage 9 — Iterative Convergence</h3>
+      <p>Run the review process repeatedly until further iteration produces no new signal. After each pass, identify what was new vs. what was rediscovery. Track when the rate of new signal drops sharply — that's convergence. Typical convergence: 3–4 full review passes. Beyond convergence, additional passes produce variance, not improvement.</p>
+
+      <h3>Stage 10 — Build-Ready Translation</h3>
+      <p>Translate the architecture into a build plan that an engineer (human or AI) can execute. Produce a <code>SPEC.md</code> organized by section (~500–1000 lines for a complex system) including: precedence rules, safety invariants, performance targets, build order with ship gates per phase, deferred items, and explicit refusals. Produce a <code>BRIEF.md</code> that bootstraps an AI builder — short, foolproof, with the absolute floor encoded so it survives context loss.</p>
+
+      <hr />
+
+      <h2>Patterns That Reliably Emerge</h2>
+      <p>These showed up in CBL because they show up in well-architected systems generally:</p>
+      <ul>
+        <li><strong>Layered Perception.</strong> Most systems perceive through one channel. Better systems perceive through multiple layers and prefer the most semantic one. Visual is fallback, not primary.</li>
+        <li><strong>Two-Agent Planner/Executor.</strong> A strong model plans, a cheap deterministic process executes, a verifier catches failures. This pattern recurs across every kind of agent system because it's structurally correct.</li>
+        <li><strong>State as a Graph, Not a Blob.</strong> Flat state representations lose causal information. State-transition graphs preserve it and enable reasoning about reversibility, causality, and consequence.</li>
+        <li><strong>Probabilistic Verification.</strong> Binary success/fail produces false confidence. Probabilistic verification with explicit uncertainty handling produces correct behavior under noise.</li>
+        <li><strong>Memory With Consolidation.</strong> Continuous AI systems that don't consolidate memory degrade over time. Add periodic offline reorganization and you get stable long-term performance.</li>
+        <li><strong>Control Mechanisms Inspired by Physical Engineering.</strong> Rate limits, control rods, dampers, pressure-relief valves — physical engineering has 70+ years of cascading-effect prevention. AI systems usually skip this and pay for it later.</li>
+        <li><strong>Three-Tier Mode Architecture.</strong> Personal (default, safe) → Organizational (managed, audited) → Research/Power-user (gated, capable). Lets one product serve three populations with appropriate safety per tier.</li>
+        <li><strong>Structural Separation, Not Policy.</strong> Where misuse is possible, build the architecture so misuse is impossible without explicit unsafe action — not so misuse is forbidden by rules.</li>
+        <li><strong>Refusal as Feature.</strong> What the system refuses to do is as important as what it does. Documented refusal categories and refusal-with-explanation are trust-building patterns.</li>
+        <li><strong>Forensic-Grade Audit.</strong> Hash-chained, third-party verifiable, immutable, exportable. Audit logs that are tamper-evident by design.</li>
+        <li><strong>Phase Gates With Concrete Ship Criteria.</strong> Each build phase has explicit "this is done" criteria. Don't advance past gates that don't pass.</li>
+        <li><strong>The Precedence Rule.</strong> When decisions conflict: safety invariants > scope/permission gates > constitutional principles > performance targets > everything else.</li>
+      </ul>
+
+      <hr />
+      <blockquote>
+        This methodology produced an unusually rigorous architecture for CBL because it didn't take shortcuts. The same methodology will produce comparably rigorous architectures for other problems if applied with the same discipline.
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PROJECTS
+════════════════════════════════════════ -->
+<section id="work">
+  <div class="container">
+    <p class="section-label">Selected Work</p>
+    <div class="projects-grid">
+
+      <!-- LEON -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-name">Leon (CBL)</div>
+            <div class="project-tagline">Cognitive Browser Layer</div>
+          </div>
+          <span class="status-badge">v1 complete; v2 in design</span>
+        </div>
+        <p class="project-desc">Chrome extension implementing a safety-first browser agent. Two-agent architecture: model-agnostic planner (currently Claude API) + local deterministic executor.</p>
+        <ul class="project-highlights">
+          <li>Three-tier scope engine (Personal / Organizational / Research) with cryptographic authorization proof; 14 unoverridable safety invariants</li>
+          <li>Hash-chained forensic-grade audit log; control-rod damping inspired by nuclear engineering; memory consolidation cycles inspired by sleep research</li>
+          <li>~900-line specification developed through multi-stage simulated review across Chromium engineers, ML researchers, neuroscientists, and theoretical physicists</li>
+        </ul>
+      </div>
+
+      <!-- MOZART -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-name">Mozart</div>
+            <div class="project-tagline">Six-Primitive Cognitive Substrate</div>
+          </div>
+          <span class="status-badge">Built; in pre-deployment testing</span>
+        </div>
+        <p class="project-desc">Modular substrate for composable AI cognition. Designed for selective composition into other systems rather than wholesale adoption.</p>
+        <ul class="project-highlights">
+          <li>Six primitives implemented, including CLONALG immune-system search with idiotypic-network suppression (anomaly detection) and hyperbolic memory (hierarchical representation with negative curvature)</li>
+          <li>Benchmark suite and external evaluation in active development; documents negative results alongside wins as deliberate research discipline</li>
+        </ul>
+      </div>
+
+      <!-- 42 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-name">42</div>
+            <div class="project-tagline">Instrumented Cognitive Observation Study</div>
+          </div>
+          <span class="status-badge">Phase Zero built; in active debugging</span>
+        </div>
+        <p class="project-desc">N=1 study of emergent cognition under binding pre-registration protocol. Sealed constitutional core, pre-registered hypotheses, welfare protocol with hard-threshold triggers.</p>
+        <ul class="project-highlights">
+          <li>NYU Declaration as rubric; hash-chained audit; 14 of 15 safety invariants verified end-to-end</li>
+          <li>Resolving session-initialization issue before opening external observation</li>
+        </ul>
+      </div>
+
+      <!-- DALE -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-name">Dale</div>
+            <div class="project-tagline">AI Phone Platform for Trades</div>
+          </div>
+          <span class="status-badge">v2 rebuild in progress</span>
+        </div>
+        <p class="project-desc">Done-for-you AI receptionist for HVAC, plumbing, auto body, and custom fab shops. v1 served paying clients across the trades vertical.</p>
+        <ul class="project-highlights">
+          <li>v1 stack: GoHighLevel + Retell + Claude API + Twilio + Make.com with vertical-specific configurations per trade</li>
+          <li>v2 rebuilds for direct ownership (Supabase, Oracle Cloud Ampere, direct Retell + Twilio integration) and improved margin structure</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     RESUME
+════════════════════════════════════════ -->
+<section id="resume">
+  <div class="container">
+    <div class="resume-inner">
+      <div class="resume-text">
+        <h2>Resume</h2>
+        <p>AI Systems Architect · Filmmaker · Writer &amp; Editor — current as of 2025.</p>
+      </div>
+      <a class="resume-download" href="AndrewTippie_Resume_v3.pdf" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CONTACT
+════════════════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="contact-headline">Let's talk.</h2>
+    <p class="contact-sub">I respond within 30 minutes during business hours. Email is the fastest path; Calendly available for scheduling.</p>
+    <div class="contact-links">
+
+      <!-- Email -->
+      <a class="contact-link email-link" href="mailto:theandrewtippie@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        theandrewtippie@gmail.com
+      </a>
+
+      <!-- Calendly placeholder -->
+      <a class="contact-link muted" href="#" onclick="return false;" title="Calendly link coming soon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Schedule a call
+      </a>
+
+      <!-- LinkedIn -->
+      <a class="contact-link" href="https://www.linkedin.com/in/andrew-tippie-b265298a" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </a>
+
+      <!-- GitHub -->
+      <a class="contact-link" href="https://github.com/TipTopflipflop" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+        GitHub
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <p>© 2025 Andrew Tippie · Los Angeles, CA</p>
+    <p><a href="mailto:theandrewtippie@gmail.com">theandrewtippie@gmail.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
